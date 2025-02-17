@@ -1,51 +1,58 @@
-API de Gerenciamento de Usuários
+API de Usuários com Express e Prisma
 
-Descrição
+Este projeto é uma API REST para gerenciamento de usuários, utilizando Node.js, Express e Prisma ORM conectado a um banco de dados MongoDB.
 
-Esta API foi desenvolvida utilizando Node.js, Express e Prisma ORM para gerenciar usuários. Permite a criação, listagem, atualização e remoção de usuários de um banco de dados.
-
-Tecnologias Utilizadas
+Tecnologias Utilizadas:
 
 Node.js
 
-Express.js
+Express
 
 Prisma ORM
 
-SQLite/PostgreSQL/MySQL (dependendo da configuração do Prisma)
+MongoDB
 
-Instalação
+Configuração do Ambiente:
 
-1. Clone o repositório
+Antes de iniciar o projeto, certifique-se de ter instalado:
 
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
-cd nome-do-repositorio
+Node.js
 
-2. Instale as dependências
+MongoDB Atlas (ou uma instância local do MongoDB)
+
+Prisma ORM
+
+Instalação e Configuração:
+
+Clone o repositório:
+
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+
+Instale as dependências:
 
 npm install
 
-3. Configure o Prisma
+Configurar a conexão com o MongoDB:
+No arquivo .env, substitua a string de conexão pelo seu banco de dados MongoDB:
 
-Edite o arquivo .env para definir a URL do banco de dados. Exemplo:
+DATABASE_URL="mongodb+srv://seu-usuario:suasenha@seucluster.mongodb.net/Users?retryWrites=true&w=majority&appName=Users"
 
-DATABASE_URL="file:./dev.db" # Para SQLite
+Gere o cliente Prisma:
 
-Após configurar, execute:
+npx prisma generate
 
-npx prisma migrate dev --name init
+Inicie o servidor:
 
-4. Inicie o servidor
+npm start
 
-node server.js
+Endpoints da API
 
-A API estará disponível em http://localhost:3000.
-
-Endpoints
-
-Criar um usuário
+Criar um Usuário
 
 POST /usuarios
+
+Body (JSON):
 
 {
   "name": "João Silva",
@@ -53,34 +60,40 @@ POST /usuarios
   "age": 30
 }
 
-Listar usuários
+Listar Usuários
 
 GET /usuarios
 
-Retorna todos os usuários cadastrados.
+Resposta:
 
-Pode filtrar por nome com ?name=João.
+[
+  {
+    "id": "63f7c1a6a1b2c3d4e5f6a7b8",
+    "name": "João Silva",
+    "email": "joao@email.com",
+    "age": 30
+  }
+]
 
-Atualizar um usuário
+Atualizar Usuário
 
 PUT /usuarios/:id
 
+Body (JSON):
+
 {
-  "name": "Maria Souza",
-  "email": "maria@email.com",
-  "age": 25
+  "name": "João Pedro Silva",
+  "email": "joaopedro@email.com",
+  "age": 31
 }
 
-Deletar um usuário
+Deletar Usuário
 
 DELETE /usuarios/:id
 
-Remove o usuário com o ID informado.
+Resposta:
 
-Considerações
-
-Certifique-se de que o banco de dados esteja configurado corretamente antes de rodar a API.
-
-O Prisma deve estar conectado a um banco de dados válido.
-
+{
+  "message": "Usuário deletado com sucesso!"
+}
 
