@@ -17,23 +17,20 @@ app.post('/usuarios', async (req , res)=>{
  res.status(201).json(req.body)
 })
 
-app.get('/usuarios', async (req , res)=>{
-   let users = []
+app.get('/usuarios', async (req, res) => {
+  let users = []
 
-   if (req.query){
+  if (req.query) {
     users = await prisma.user.findMany({
-      where:{
+      where: {
         name: req.query.name
-       }
       }
-    ) 
-   } else {
+    })
+  } else {
     users = await prisma.user.findMany()
-   }
-   }
-  const users = await prisma.user.findMany()  //listar users
+  }
 
-    res.status(200).json(users)
+  res.status(200).json(users)
 })
 
 
